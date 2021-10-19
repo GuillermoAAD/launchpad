@@ -1,4 +1,4 @@
-# launchpad
+# Launchpad
 
 Basado en
 https://codingpotions.com/launchpad-javascript
