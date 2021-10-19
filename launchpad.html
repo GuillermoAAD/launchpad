@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Launchpad</title>
+   <style type="text/css">
+      :root {
+         --colorRandom: #ffcccc;
+      }
+
+      .launchpad {
+         width: 410px;
+         padding: 3rem;
+         background: #e5e3de;
+         margin: 0px auto;
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         grid-template-rows: repeat(3, 1fr);
+         column-gap: 10px;
+         row-gap: 10px;
+         font-family: sans;
+         font-size: 18px;
+         font-weight: 600;
+      }
+
+      .pad {
+         width:130px;
+         height: 130px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-direction: column;
+         /* background-color: #d6d7d8; */
+         background: radial-gradient(#eaedef, #c2c4c6);
+         border-radius: 20px;
+         box-shadow: 0 2px 3px #ccc;
+         border-radius: 0.5em;
+         border-bottom: 0.4em solid #9e9e9e;
+         -moz-transition: 0.1s ease-in;
+         -webkit-transition: 0.1s ease-in;
+         transition: 0.1s ease-in;
+      }
+
+      .playing {
+         background: radial-gradient(#cedae8, var(--colorRandom));
+         /* background: radial-gradient(#cedae8, #d7e6ef); */
+         /* background: var(--colorRandom); */
+         border-bottom-width: 0;
+         margin-top: 0.2em;
+      }
+      
+   </style>
+   <script>
+     window.addEventListener('keydown', playSound);
+
+     function playSound(e) {
+        //console.log(e.keyCode);
+        const key = e.key.toLowerCase();
+        const mySound = document.querySelector(`audio[data-key="${key}"]`);
+        const pad = document.querySelector(`.pad[data-key="${key}"]`);
+
+        if (!mySound) return;
+
+        changeColor(pad);
+
+        mySound.currentTime = 0;
+        mySound.play();
+        pad.classList.add('playing');
+        
+        setTimeout(() => {
+           pad.classList.remove('playing');
+        }, 120)
+     }
+
+     function changeColor(pad) {
+        var simbolos, color;
+        simbolos = "0123456789ABCDEF";
+        color = "#cc";
+        for(var i = 0; i < 4; i++){
+           color = color + simbolos[Math.floor(Math.random() * 16)];
+        }
+
+
+      document.documentElement.style.setProperty('--colorRandom', color);
+
+     }
+
+   </script>
+
+</head>
+<body>
+   <div class="launchpad">
+      <div data-key="q" class="pad">Q</div>
+      <div data-key="w" class="pad">W</div>
+      <div data-key="e" class="pad">E</div>
+      <div data-key="a" class="pad">A</div>
+      <div data-key="s" class="pad">S</div>
+      <div data-key="d" class="pad">D</div>
+      <div data-key="z" class="pad">Z</div>
+      <div data-key="x" class="pad">X</div>
+      <div data-key="c" class="pad">C</div>
+   </div>
+
+   <audio data-key="q" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/clap.wav"></audio>
+   <audio data-key="w" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/hihat.wav"></audio>
+   <audio data-key="e" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/kick.wav"></audio>
+   <audio data-key="a" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/openhat.wav"></audio>
+   <audio data-key="s" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/boom.wav"></audio>
+   <audio data-key="d" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/ride.wav"></audio>
+   <audio data-key="z" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/snare.wav"></audio>
+   <audio data-key="x" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/tom.wav"></audio>
+   <audio data-key="c" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1159990/tink.wav"></audio>
+   
+</body>
+</html>
+
